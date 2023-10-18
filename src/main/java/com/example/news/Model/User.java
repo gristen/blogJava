@@ -19,7 +19,7 @@ public class User {
     private String s_name;
     private int age;
     @ManyToOne
-    @JoinColumn(name = "id_role")
+    @JoinColumn(name = "id_role",columnDefinition = "INT DEFAULT 1")
     private Roles role;
 
 
@@ -27,7 +27,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<Posts> posts;
 
-
+    // Конструктор с установкой значения по умолчанию для id_role
+    public User() {
+        this.role = new Roles();
+        this.role.setId_role(1L); // Устанавливаем значение по умолчанию
+    }
 
 
 }

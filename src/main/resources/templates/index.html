@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>ITnews</title>
+    <title>Main</title>
 </head>
 <body>
 
@@ -30,20 +30,13 @@
                 </h1>
             </div>
             <nav class="col-8">
-                <ul>
-                            <li>  <a href="">Профиль</a></li>
-
-                            <li><a href="admin/posts/index.html">Выход</a> </li>
-                        </ul>
-
-                        <?php else: ?>
                         <a href="#">
                             <i class="fa fa-user">Личный кабенет</i>
                         </a>
                         <ul>
                             <li><a href="../../log.php">ВХод</a> </li>
                             <li><a href="../../reg.php">Регистрация</a> </li>
-                            <li><a href="../../logout.php">Выход</a> </li>
+
                         </ul>
 
                     </li>
@@ -58,12 +51,7 @@
         <!-- Main Content -->
         <h2 class="mt-5 mb-5" >Последние публикации</h2>
         <div class="main-content col-md-9 col-12" id="posts">
-
-
             <div class="post row">
-<!--                <div class="img col-12 col-md-4">-->
-<!--                    <img src="https://cojo.ru/wp-content/uploads/2022/12/cherri-blossom-derevo-1-2.webp" class="img-thumbnail">-->
-<!--                </div>-->
                 <div th:each="post : ${posts}" class="post_text col-12 col-md-8">
                     <h3>
                         <a  th:text="${post.title}" href=""> </a>

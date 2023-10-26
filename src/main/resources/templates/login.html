@@ -21,7 +21,7 @@
 </head>
 <body>
 <div class="container reg_form">
-    <form th:action="@{/auth}" th:object="${user}" method="post">
+    <form th:action="@{/login}" th:object="${user}" method="post">
         <div class="row justify-content-center">
 
 
@@ -40,6 +40,7 @@
             <div class="mb-3 col-12 col-md-4">
                 <label class="form-label">password</label>
                 <input th:field="*{password}"  class="form-control" placeholder="введите скок вам лет...">
+                <input type="hidden" name="_csrf" value="${_csrf.token}">
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">

@@ -18,9 +18,6 @@ public class Posts {
     private Long id;
     private String title;
     private String content;
-    private String image = "Заглушка";
-
-
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;

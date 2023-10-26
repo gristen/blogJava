@@ -46,6 +46,8 @@ session_start();
             <div class="mb-3 col-12 col-md-4">
                 <label class="form-label">password</label>
                 <input th:field="*{password}"  class="form-control" placeholder="password...">
+                <input type="hidden" name="_csrf" value="${_csrf.token}">
+
             </div>
             <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">

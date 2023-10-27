@@ -35,11 +35,6 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/hello")
-    public String url()
-    {
-        return "hello";
-    }
 
 
 

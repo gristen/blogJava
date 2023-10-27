@@ -1,6 +1,7 @@
 package com.example.news.Controller;
 
 import com.example.news.Model.Posts;
+import com.example.news.Model.Roles;
 import com.example.news.Repository.UserRepository;
 import com.example.news.Service.PostsService;
 import com.example.news.Service.UserService;
@@ -14,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.example.news.Model.User;
 
+import java.security.Principal;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("")
@@ -26,13 +29,29 @@ public class PostsController {
 
         @GetMapping("")
 
-        public String getAllPosts(Model model){
+        public String getAllPosts(Model model,Principal principal){
             model.addAttribute("posts", postsService.getAllPosts());
             model.addAttribute("post", new Posts());
+
+            // Получите имя текущего пользователя (принципала)
+            String currentUsername = principal.getName();
+
+            // Получите пользователя из базы данных по имени
+            User currentUser = userRepository.findByUsername(currentUsername);
+
+            // Проверьте, есть ли у пользователя роль админа
+            boolean isAdmin = currentUser.getRoles().contains(Roles.ROLE_ADMIN);
+            model.addAttribute("isAdmin", isAdmin);
 
             return "index";
 
         }
+
+    @PostMapping("/deletePost")
+    public String deletePost(@RequestParam Long postId) {
+        postsService.delete(postId);
+        return "redirect:/"; // или другая страница
+    }
    @PostMapping("/admin/posts/save")
    public String savePost(@ModelAttribute Posts posts) {
             String title = posts.getTitle();
@@ -76,13 +95,28 @@ public class PostsController {
         return "/admin/posts/index";
 
     }
-    @GetMapping("/post/create")
+    @GetMapping("/create")
 
     public String createPost(Model model){
         System.out.println("create");
         model.addAttribute("post", new Posts());
         return "/admin/posts/create";
 
+    }
+
+    @GetMapping("/post/{postId}")
+    public String viewPost(@PathVariable Long postId, Model model, Principal principal) {
+
+        Posts post = postsService.getPostById(postId);
+
+        if (post != null) {
+            model.addAttribute("post", post);
+            model.addAttribute("userRoles", post);
+            return "post";
+        } else {
+            // Обработка случая, когда пост не найден
+            return "redirect:/"; // Или другое действие
+        }
     }
 
 

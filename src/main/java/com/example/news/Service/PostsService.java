@@ -38,4 +38,8 @@ public class PostsService {
     public List<Posts> getAllPosts(){
         return postRepository.findAll();
     }
+    // ПОИСК ПО ID
+    public Posts getPostById(Long id) {
+        return postRepository.findById(id).orElse(null);
+    }
 }

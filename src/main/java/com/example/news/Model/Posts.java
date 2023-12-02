@@ -1,9 +1,10 @@
 package com.example.news.Model;
 
 
+import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.persistence.*;
+
 
 
 @Entity
